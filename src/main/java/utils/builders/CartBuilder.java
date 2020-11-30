@@ -1,7 +1,8 @@
 package utils.builders;
 
-import model.entities.beans.Cart;
-import model.entities.beans.Product;
+
+import model.beans.Cart;
+import model.beans.Product;
 
 import java.util.List;
 

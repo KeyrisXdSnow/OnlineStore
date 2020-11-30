@@ -1,7 +1,7 @@
 package utils.builders;
 
+import model.beans.User;
 import model.entities.Role;
-import model.entities.beans.User;
 
 public class UserBuilder {
 

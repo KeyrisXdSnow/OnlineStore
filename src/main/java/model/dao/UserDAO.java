@@ -1,17 +1,19 @@
 package model.dao;
 
+
 import config.DatabaseConfig;
+import model.beans.User;
 import model.entities.Datebase;
 import model.entities.Role;
-import model.entities.beans.User;
-import model.services.BCrypt;
-import model.services.DatebaseService;
-import model.services.builders.UserBuilder;
+import utils.DatebaseService;
+import utils.builders.UserBuilder;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
+
+import service.BCrypt;
 
 public class UserDAO {
 
