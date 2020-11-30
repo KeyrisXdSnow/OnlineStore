@@ -1,4 +1,4 @@
-package model.config;
+package config;
 
 import model.entities.Datebase;
 
