@@ -4,6 +4,7 @@ package utils.builders;
 import model.beans.Cart;
 import model.beans.Product;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class CartBuilder {
@@ -24,7 +25,7 @@ public class CartBuilder {
         return this;
     }
 
-    public CartBuilder withProductList (List<? extends Product> productList) {
+    public CartBuilder withProductList (LinkedHashMap<? extends Product,Integer> productList) {
         this.cart.setProductList(productList);
         return this;
     }

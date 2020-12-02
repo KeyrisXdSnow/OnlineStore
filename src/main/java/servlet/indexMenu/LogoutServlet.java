@@ -1,6 +1,6 @@
 package servlet.indexMenu;
 
-import utils.AppService;
+import utils.AppUtils;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +14,7 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        AppService.removeLoginedUser(req.getSession());
+        AppUtils.removeLoginedUser(req.getSession());
         resp.sendRedirect(super.getServletContext().getContextPath());
     }
 }

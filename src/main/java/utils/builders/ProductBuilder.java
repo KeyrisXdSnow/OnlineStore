@@ -12,13 +12,19 @@ public class ProductBuilder {
         product = new Product();
     }
 
+    public ProductBuilder withId (long id) {
+        this.product.setId(id);
+
+        return this;
+    }
+
     public ProductBuilder withName (String name) {
         this.product.setName(name);
 
         return this;
     }
 
-    public ProductBuilder withCost (long cost) {
+    public ProductBuilder withCost (double cost) {
         this.product.setCost(cost);
 
         return this;
@@ -26,6 +32,12 @@ public class ProductBuilder {
 
     public ProductBuilder withSpecification (Specification specification) {
         this.product.setSpecification(specification);
+
+        return this;
+    }
+
+    public ProductBuilder withinStore (boolean inStore) {
+        this.product.setInStore(inStore);
 
         return this;
     }

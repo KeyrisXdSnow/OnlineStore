@@ -2,7 +2,7 @@ package filters;
 
 import config.PagesСonfig;
 import model.beans.User;
-import utils.AppService;
+import utils.AppUtils;
 import utils.SecurityService;
 
 import javax.servlet.*;
@@ -27,7 +27,7 @@ public class SecurityFilter implements Filter {
 
         String servletPath = request.getServletPath();
 
-        User user = AppService.getLoginedUser(request.getSession());
+        User user = AppUtils.getLoginedUser(request.getSession());
 
         if (servletPath.equals("/login") ^ servletPath.equals("/login.jsp")) {
 
@@ -49,7 +49,7 @@ public class SecurityFilter implements Filter {
             }
 
             if (!SecurityService.hasPermission(request, user.getRole())) {
-                AppService.removeLoginedUser(request.getSession());
+                AppUtils.removeLoginedUser(request.getSession());
                 response.sendRedirect(request.getContextPath()+ PagesСonfig.loginUrl);
                 return;
 

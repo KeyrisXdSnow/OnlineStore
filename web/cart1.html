@@ -5,80 +5,10 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
-
-        .list-group_c {
-            display: flex;
-            width: 40%;
-        }
-
-        .img {
-            float: left;
-            margin-right: 2%;
-            width: 50%;
-        }
-
-        img {
-            width: 100%;
-        }
-
-        .delete img {
-            float: right;
-        }
-
-        .product_amount_container {
-            padding-left: 2%;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
-
-            -webkit-align-items: center;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-        }
-
-        .product_amount {
-            padding-bottom: 30%;
-            padding-top: 30%;
-        }
-
-        .money {
-
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
-
-            -webkit-align-items: center;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-
-            margin-left: 15%;
-        }
-
-        .price {
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
-
-            -webkit-align-items: center;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-
-            position: absolute;
-            right: 2%;
-            bottom: 2%;
-        }
-
-    </style>
+    <link rel="stylesheet" href="resources/css/cart/productItem.css">
 </head>
 <body>
-<ul class="list-group_c">
+<ul class="list-group_productList">
     <div class="list-group">
 
         <div class="list-group-item flex-column align-items-start">
@@ -89,7 +19,7 @@
                 </button>
             </div>
             <div class="d-flex w-100 justify-content-start">
-                <div class="img"><img src="resources/img/mainCatalog/enot.jpg"></div>
+                <div class="img"><img src="resources/img/products/enot.jpg" alt="resources/img/products/not_found.svg"></div>
                 <div class="product_amount_container">
                     <div>
                         <button type="button" class="btn btn-dark">-</button>
@@ -116,7 +46,7 @@
                 </button>
             </div>
             <div class="d-flex w-100 justify-content-start">
-                <div class="img"><img src="resources/img/mainCatalog/alpakaWhite.jpg"></div>
+                <div class="img"><img src="resources/img/products/alpakaWhite.jpg"></div>
                 <div class="product_amount_container">
                     <div>
                         <button type="button" class="btn btn-dark">-</button>
@@ -137,5 +67,17 @@
         </div>
     </div>
 </ul>
+
+<script type='text/javascript' src='resources/js/jquery.js'></script>
+<script type='text/javascript' src='resources/js/jquery-migrate.min.js'></script>
+
+
+<link href='https://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400' rel='stylesheet'
+      type='text/css'>
+
+<link rel="stylesheet" href="resources/css/parts/header.css">
+
+<link href='http://fonts.googleapis.com/css?family=Comfortaa:400,700,300|Ubuntu:400,700,300&subset=latin,cyrillic'
+      rel='stylesheet' type='text/css'>
 </body>
 </html>

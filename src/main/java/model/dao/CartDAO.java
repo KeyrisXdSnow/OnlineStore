@@ -1,18 +1,16 @@
 package model.dao;
 
+import config.DatabaseConfig;
 import model.beans.Cart;
 import model.beans.Product;
-import config.DatabaseConfig;
 import model.entities.Datebase;
 import utils.DatebaseService;
 import utils.builders.CartBuilder;
-import utils.builders.ProductBuilder;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
 
 public class CartDAO {
 
@@ -25,7 +23,7 @@ public class CartDAO {
     // TODO: заменить boolean
     // TODO: добавить обновление cost таблицы cart
     // TODO: исправитьдобавление в productList. Убрать дефолнтые данные у Product
-    public static boolean addProductToBasket(Cart cart, long productId) {
+    public static boolean addProductToBasket(Cart cart, Product product) {
 
         Connection connection = DatebaseService.connectToBD(database);
         try {
@@ -36,11 +34,14 @@ public class CartDAO {
 
             String insertSql = String.format(
                     "INSERT INTO cart_item (id_cart, id_user, id_product) VALUES(%d,%d,%d) ON DUPLICATE KEY UPDATE amount=amount+1",
-                    cart.getCartId(), cart.getUserId(), productId
+                    cart.getCartId(), cart.getUserId(), product.getId()
             );
 
-            List productList = cart.getProductList();
-            productList.add(new ProductBuilder().withName("").withCost(100).withSpecification(null).getProduct());
+            LinkedHashMap productList = cart.getProductList();
+
+            if (productList.containsKey(product)) productList.replace(product, ((int) productList.get(product)) + 1);
+            else productList.put(product, 1);
+
             cart.setProductList(productList);
 
             DatebaseService.execute(insertSql, connection);
@@ -120,7 +121,7 @@ public class CartDAO {
 
     }
 
-    public static Cart getCartByUserId(long userId) {
+    public static Cart getCartByUserId(long userId, LinkedHashMap<? extends Product, String> catalog) {
 
         Connection connection = DatebaseService.connectToBD(database);
         try {
@@ -135,7 +136,7 @@ public class CartDAO {
                     CartBuilder()
                     .withCartId(cartId)
                     .withUserId(userId)
-                    .withProductList(getProductListByBasketId(cartId))
+                    .withProductList(getProductListByCartId(cartId,catalog))
                     .getCart();
 
         } catch (NullPointerException | SQLException e) {
@@ -147,7 +148,7 @@ public class CartDAO {
 
     }
 
-    public static List<? extends Product> getProductListByBasketId(long cartId) {
+    public static LinkedHashMap<? extends Product, Integer> getProductListByCartId(long cartId,LinkedHashMap<? extends Product, String> catalog ) {
 
         Connection connection = DatebaseService.connectToBD(database);
         try {
@@ -155,11 +156,18 @@ public class CartDAO {
             String insertSql = String.format("SELECT * FROM cart_item WHERE id_cart=%d", cartId);
             ResultSet resultSet = DatebaseService.executeQuery(insertSql, connection);
 
-            List productList = new ArrayList<>();
+            LinkedHashMap productList = new LinkedHashMap();
+
             while (resultSet.next()) {
-                for (int i = 0; i < Long.parseLong(resultSet.getString(4)); i++) {
-                    productList.add(new ProductBuilder().withName("").withCost(100).getProduct());
-                }
+
+                long productId = Long.parseLong(resultSet.getString(3));
+                long amount = Long.parseLong(resultSet.getString(4));
+
+                catalog.keySet().forEach(product -> {
+                    if (product.getId() == productId )
+                        productList.put(product, amount);
+                });
+
             }
 
             return productList;

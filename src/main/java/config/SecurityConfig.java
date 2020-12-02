@@ -19,7 +19,7 @@ public class SecurityConfig {
         List<String> userAvailableURLs = new ArrayList<>();
         userAvailableURLs.add(PagesСonfig.indexPage);
         userAvailableURLs.add(PagesСonfig.indexUrl);
-        userAvailableURLs.add(PagesСonfig.cartIndex);
+        userAvailableURLs.add(PagesСonfig.cartPage);
         userAvailableURLs.add(PagesСonfig.cartUrl);
         userAvailableURLs.add("/");
 

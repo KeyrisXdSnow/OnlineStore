@@ -1,0 +1,69 @@
+
+.list-group_productList {
+    display: flex;
+    width: 40%;
+}
+
+.list-group_productList.img {
+    float: left;
+    margin-right: 2%;
+}
+
+
+.list-group_productList.delete img {
+    float: right;
+}
+
+.list-group_productList.product_amount_container {
+    padding-left: 2%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.list-group_productList.product_amount {
+    padding-bottom: 30%;
+    padding-top: 30%;
+}
+
+.list-group_productList.money {
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+    margin-left: 15%;
+}
+
+.list-group_productList.price {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+    position: absolute;
+    right: 2%;
+    bottom: 2%;
+}
+
+
+.img {
+    width: 50%;
+}

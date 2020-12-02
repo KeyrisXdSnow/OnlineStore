@@ -1,11 +1,13 @@
 package servlet;
 
-import model.config.PagesСonfig;
-import model.entities.beans.Cart;
-import model.entities.beans.User;
-import model.entities.dao.CartDAO;
-import model.entities.dao.UserDAO;
-import model.services.AppService;
+
+import config.PagesСonfig;
+import model.beans.Cart;
+import model.beans.User;
+import model.dao.CartDAO;
+import model.dao.ProductDAO;
+import model.dao.UserDAO;
+import utils.AppUtils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -74,11 +76,14 @@ public class LogInServlet extends HttpServlet {
             return;
         }
 
-        Cart cart = CartDAO.getCartByUserId(user.getId());
-        AppService.storeLoginedUser(req.getSession(), user,cart);
+        var productList = ProductDAO.getProductListInStore();
+        Cart cart = CartDAO.getCartByUserId(user.getId(), productList);
+        AppUtils.storeLoginedUser(req.getSession(), user,cart);
+        AppUtils.storeCatalog(req.getSession(),productList);
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(PagesСonfig.indexPage);
-        dispatcher.forward(req, resp);
+
+
+        resp.sendRedirect(super.getServletContext().getContextPath()+ PagesСonfig.indexUrl);
     }
 
     @Override

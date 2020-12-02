@@ -1,5 +1,8 @@
 package servlet;
 
+import model.dao.ProductDAO;
+import utils.AppUtils;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

@@ -1,8 +1,8 @@
 package servlet;
 
-import model.config.PagesСonfig;
-import model.entities.dao.CartDAO;
-import model.entities.dao.UserDAO;
+import config.PagesСonfig;
+import model.dao.CartDAO;
+import model.dao.UserDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

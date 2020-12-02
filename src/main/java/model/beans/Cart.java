@@ -1,13 +1,15 @@
 package model.beans;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.LinkedHashMap;
 
 public class Cart implements Serializable {
 
     private long cartId;
     private long userId;
-    private List<? extends Product> productList ;
+    private LinkedHashMap<? extends Product,Integer> productList ;
+
+
 
     public Cart(){
     }
@@ -28,11 +30,11 @@ public class Cart implements Serializable {
         this.userId = userId;
     }
 
-    public List<? extends Product> getProductList() {
+    public LinkedHashMap<? extends Product, Integer> getProductList() {
         return productList;
     }
 
-    public void setProductList(List<? extends Product> productList) {
+    public void setProductList(LinkedHashMap<? extends Product, Integer> productList) {
         this.productList = productList;
     }
 }

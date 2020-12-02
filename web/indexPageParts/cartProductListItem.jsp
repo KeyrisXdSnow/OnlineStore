@@ -1,5 +1,5 @@
-        <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-    <div class="list-group-item flex-column align-items-start">
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<div class="list-group-item flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
         <h1 class="mb-1">Акула из ИКЕА</h1>
         <button type="button" class="btn btn-outline-light" style="border: 0; width: 10%; float: right;"><img

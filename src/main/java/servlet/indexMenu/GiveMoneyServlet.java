@@ -2,7 +2,7 @@ package servlet.indexMenu;
 
 import model.beans.User;
 import model.dao.UserDAO;
-import utils.AppService;
+import utils.AppUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +28,7 @@ public class GiveMoneyServlet extends HttpServlet {
         try {
 
             UserDAO.updateBalanceByUserId(user.getId(),user.getBalance());
-            AppService.storeLoginedUserInfo(req.getSession(),user);
+            AppUtils.storeLoginedUserInfo(req.getSession(),user);
 
         } catch (Exception e) {
             e.printStackTrace();
