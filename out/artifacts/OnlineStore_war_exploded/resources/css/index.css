@@ -1,0 +1,25 @@
+.btn_container {
+    color: #2b542c;
+    font-size: 15%;
+}
+
+
+.plus {
+    float: right;
+    height: auto;
+    width: auto;
+}
+
+.addToCart {
+    position: absolute;
+    margin-left: 100%;
+}
+
+.btn_container {
+    float: right;
+}
+
+.btn_container p {
+    margin-top: -15%;
+    font-size: 350%;
+}

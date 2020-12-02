@@ -1,0 +1,51 @@
+
+.recentcomments a {
+    display: inline !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+nav.menu ul {
+    list-style: none;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav.menu ul li a, button {
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    color: #bf3434;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin: 0 10px;
+}
+
+nav.menu ul li button {
+    outline: none; /* Для синий ободки */
+    border: 0;
+    background: transparent;
+    padding: 0;
+}
+
+nav.menu ul li a,
+nav.menu ul li a:after,
+nav.menu ul li a:before {
+    transition: all 0.3s;
+}
+
+nav.menu ul li a:hover {
+    color: #555;
+}
+
+nav.menu ul li button:hover {
+    color: #555;
+}
+
+
+.user_info {
+    float: right;
+}
