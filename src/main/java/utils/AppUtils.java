@@ -10,13 +10,13 @@ import java.util.List;
 
 public class AppUtils {
 
-    private static final String attributeUser = "userInfo";
-    private static final String attributeCart = "cart";
+    public static final String attributeUser = "userInfo";
+
     public static final String attributeCatalog = "productCatalog";
 
     public static void storeLoginedUser(HttpSession session, User user, Cart cart) {
         session.setAttribute(attributeUser, user);
-        session.setAttribute(attributeCart, cart);
+        CartUtils.storeCart(session,cart);
     }
 
     public static void storeLoginedUserInfo(HttpSession session, User user) {
@@ -28,17 +28,10 @@ public class AppUtils {
     }
 
     public static void removeLoginedUser (HttpSession session) {
-        session.removeAttribute(attributeCart);
+        CartUtils.removeCart(session);
         session.removeAttribute(attributeUser);
         session.removeAttribute(attributeCatalog);
     }
-
-    public static Cart getLoginedUserCart (HttpSession session) {
-        return  (Cart) session.getAttribute(attributeCart);
-    }
-
-
-
 
     public static void storeCatalog(HttpSession session, LinkedHashMap<? extends Product, String> productList) {
         session.setAttribute(attributeCatalog, productList);

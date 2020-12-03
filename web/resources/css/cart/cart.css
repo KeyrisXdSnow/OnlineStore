@@ -40,15 +40,8 @@ img {
 
     display: flex;
     justify-content: center;
-    flex-direction: column;
-    text-align: center;
-
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
-
-    margin-left: 15%;
+    margin-left: 5%;
 }
 
 .price {
@@ -77,4 +70,11 @@ img {
     align-items: center;
 
     justify-content: start;
+}
+
+.messages_container {
+    display: flex;
+    justify-content: center;
+
+
 }

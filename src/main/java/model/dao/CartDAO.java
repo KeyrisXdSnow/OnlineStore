@@ -136,7 +136,7 @@ public class CartDAO {
                     CartBuilder()
                     .withCartId(cartId)
                     .withUserId(userId)
-                    .withProductList(getProductListByCartId(cartId,catalog))
+                    .withProductList(getProductListByCartId(cartId, catalog))
                     .getCart();
 
         } catch (NullPointerException | SQLException e) {
@@ -148,7 +148,7 @@ public class CartDAO {
 
     }
 
-    public static LinkedHashMap<? extends Product, Integer> getProductListByCartId(long cartId,LinkedHashMap<? extends Product, String> catalog ) {
+    public static LinkedHashMap<? extends Product, Integer> getProductListByCartId(long cartId, LinkedHashMap<? extends Product, String> catalog) {
 
         Connection connection = DatebaseService.connectToBD(database);
         try {
@@ -164,7 +164,7 @@ public class CartDAO {
                 long amount = Long.parseLong(resultSet.getString(4));
 
                 catalog.keySet().forEach(product -> {
-                    if (product.getId() == productId )
+                    if (product.getId() == productId)
                         productList.put(product, amount);
                 });
 
@@ -178,7 +178,59 @@ public class CartDAO {
         } finally {
             DatebaseService.closeConnection(connection);
         }
-
     }
 
+
+    public static void deleteProductFromCartByCartIdAndProductId(long cartId, long productId) {
+
+        Connection connection = DatebaseService.connectToBD(database);
+        try {
+
+            String insertSql = String.format("DELETE FROM cart_item WHERE id_cart=%d AND id_product=%d", cartId, productId);
+            DatebaseService.execute(insertSql, connection);
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+
+        } finally {
+            DatebaseService.closeConnection(connection);
+        }
+    }
+
+    public static void deleteAllProductFromCartByCId(long cartId) {
+
+        Connection connection = DatebaseService.connectToBD(database);
+        try {
+
+            String insertSql = String.format("DELETE FROM cart_item WHERE id_cart=%d", cartId);
+            DatebaseService.execute(insertSql, connection);
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+
+        } finally {
+            DatebaseService.closeConnection(connection);
+        }
+    }
+
+
+
+    public static void updateProductAmountByProductId(long cartId, long productId, int newValue) {
+
+        Connection connection = DatebaseService.connectToBD(database);
+        try {
+
+            String insertSql = String.format("UPDATE cart_item SET amount=%d WHERE id_cart=%d AND id_product=%d",
+                    newValue, cartId, productId);
+            DatebaseService.execute(insertSql, connection);
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+
+        } finally {
+            DatebaseService.closeConnection(connection);
+        }
+    }
 }
+
+

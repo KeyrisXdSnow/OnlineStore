@@ -19,43 +19,63 @@
 <!-- Main wrapper -->
 <div id="main-wrapper">
     <div id="content" class="isotope-container">
+        <div class="messages_container" style="display:flex; justify-content: center;">
+            <h1><span style="color:red">${ErrorMessage}</span></h1>
+        </div>
         <!-- Fluid container -->
         <div class="container-fluid">
+            <div class="messages_container" style="display:flex; justify-content: center;">
+                <h1><span style="color:#4cae50">${OKMessage}</span></h1>
+            </div>
             <!-- Main content -->
             <div class="container-fluid-content">
                 <div class="isotope isotope-4 row">
                     <ul class="list-group_productList">
                         <div class="list-group" style="width: 60%">
-
-                            <c:forEach var="country" items="${productList}">
+                            <c:forEach var="country" items="${cart.productList}">
                                 <div class="list-group-item flex-column align-items-start">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h1 class="mb-1">${country.key.name}</h1>
-                                        <button type="button" class="btn btn-outline-light"
-                                                style="border: 0; width: 10%; float: right;"><img
-                                                src="resources/img/cart/clear.svg">
-                                        </button>
-                                    </div>
+                                    <form action="${pageContext.request.contextPath}/cancelProduct">
+
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h1 class="mb-1">${country.key.name}</h1>
+                                            <input name="productId" type="hidden" value="${country.key.id}" required>
+
+                                            <button class="btn btn-outline-light"
+                                                    style="border: 0; width: 10%; float: right;"><img
+                                                    src="resources/img/cart/clear.svg">
+                                            </button>
+                                        </div>
+                                    </form>
+
                                     <div class="d-flex w-100 justify-content-start">
                                         <div class="img"><img
                                                 src="${productCatalog.getOrDefault(country.key,'resources/img/products/not_found.svg')}">
                                         </div>
                                         <div class="product_amount_container">
                                             <div>
-
-                                                <button type="button" class="btn btn-dark">-</button>
+                                                <form action="${pageContext.request.contextPath}/increaseProductAmount">
+                                                    <input name="productId" type="hidden" value="${country.key.id}"
+                                                           required>
+                                                    <button class="btn btn-dark">+</button>
+                                                </form>
                                             </div>
-                                            <div class="product_amount">${country.value}</div>
+                                            <div class="product_amount"><h6>${country.value}</h6></div>
                                             <div>
-                                                <button type="button" class="btn btn-dark">+</button>
+                                                <form action="${pageContext.request.contextPath}/reduceProductAmount">
+                                                    <input name="productId" type="hidden" value="${country.key.id}"
+                                                           required>
+                                                    <button class="btn btn-dark">-</button>
+                                                </form>
                                             </div>
                                         </div>
                                         <div class="money">
-                                            <div><p>${country.value * country.key.cost}</p></div>
+                                            <div><h3><strong>${country.value * country.key.cost} деняг 💵 </strong>
+                                            </h3>
+                                            </div>
                                         </div>
 
                                         <div class="price">
-                                            <div><p>${country.key.cost} деньга/штук.</p></div>
+                                            <div><h6>${country.key.cost} деньга/штук. 💵</h6></div>
                                         </div>
                                     </div>
                                 </div>
@@ -63,11 +83,11 @@
                         </div>
                     </ul>
                 </div>
-                <form action="/makeOrder" method="post" >
+                <form action="${pageContext.request.contextPath}/makeOrder" method="post">
                     <div class="make_order_container">
                         <ul class="list-group" style="width: 100%">
-                            <li class="list-group-item">Товаров: 1</li>
-                            <li class="list-group-item"><strong>Всего: 40 деняг</strong></li>
+                            <li class="list-group-item">Товаров: ${orderSize}</li>
+                            <li class="list-group-item"><strong>Всего: ${orderCost} деняг</strong></li>
                         </ul>
                         <button class="btn btn-success">Купить</button>
                     </div>

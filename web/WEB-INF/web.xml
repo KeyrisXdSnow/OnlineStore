@@ -8,4 +8,4 @@
         <servlet-name>default</servlet-name>
         <url-pattern>/resources/*</url-pattern>
     </servlet-mapping>
-</web-app>
+</web-app>  
