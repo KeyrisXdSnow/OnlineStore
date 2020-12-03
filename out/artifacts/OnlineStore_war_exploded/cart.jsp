@@ -14,7 +14,7 @@
 </head>
 <body class="page page-template page-template-template-portfolio page-template-template-portfolio-php menu-left menu-collapsible">
 
-<c:import charEncoding="utf-8" url="indexPageParts/header.jsp"/>
+<c:import charEncoding="utf-8" url="parts/header.jsp"/>
 
 <!-- Main wrapper -->
 <div id="main-wrapper">
@@ -32,13 +32,13 @@
                 <div class="isotope isotope-4 row">
                     <ul class="list-group_productList">
                         <div class="list-group" style="width: 60%">
-                            <c:forEach var="country" items="${cart.productList}">
+                            <c:forEach var="entry" items="${cart.productList}">
                                 <div class="list-group-item flex-column align-items-start">
                                     <form action="${pageContext.request.contextPath}/cancelProduct">
 
                                         <div class="d-flex w-100 justify-content-between">
-                                            <h1 class="mb-1">${country.key.name}</h1>
-                                            <input name="productId" type="hidden" value="${country.key.id}" required>
+                                            <h1 class="mb-1">${entry.key.name}</h1>
+                                            <input name="productId" type="hidden" value="${entry.key.id}" required>
 
                                             <button class="btn btn-outline-light"
                                                     style="border: 0; width: 10%; float: right;"><img
@@ -49,33 +49,33 @@
 
                                     <div class="d-flex w-100 justify-content-start">
                                         <div class="img"><img
-                                                src="${productCatalog.getOrDefault(country.key,'resources/img/products/not_found.svg')}">
+                                                src="${productCatalog.getOrDefault(entry.key,'resources/img/products/not_found.svg')}">
                                         </div>
                                         <div class="product_amount_container">
                                             <div>
                                                 <form action="${pageContext.request.contextPath}/increaseProductAmount">
-                                                    <input name="productId" type="hidden" value="${country.key.id}"
+                                                    <input name="productId" type="hidden" value="${entry.key.id}"
                                                            required>
                                                     <button class="btn btn-dark">+</button>
                                                 </form>
                                             </div>
-                                            <div class="product_amount"><h6>${country.value}</h6></div>
+                                            <div class="product_amount"><h6>${entry.value}</h6></div>
                                             <div>
                                                 <form action="${pageContext.request.contextPath}/reduceProductAmount">
-                                                    <input name="productId" type="hidden" value="${country.key.id}"
+                                                    <input name="productId" type="hidden" value="${entry.key.id}"
                                                            required>
                                                     <button class="btn btn-dark">-</button>
                                                 </form>
                                             </div>
                                         </div>
                                         <div class="money">
-                                            <div><h3><strong>${country.value * country.key.cost} деняг 💵 </strong>
+                                            <div><h3><strong>${entry.value * entry.key.cost} деняг 💵 </strong>
                                             </h3>
                                             </div>
                                         </div>
 
                                         <div class="price">
-                                            <div><h6>${country.key.cost} деньга/штук. 💵</h6></div>
+                                            <div><h6>${entry.key.cost} деньга/штук. 💵</h6></div>
                                         </div>
                                     </div>
                                 </div>

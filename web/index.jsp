@@ -15,7 +15,7 @@
 </head>
 <body class="page page-template page-template-template-portfolio page-template-template-portfolio-php menu-left menu-collapsible">
 
-<c:import url="indexPageParts/header.jsp"></c:import>
+<c:import charEncoding="utf-8" url="parts/header.jsp"/>
 
 <!-- Main wrapper -->
 <div id="main-wrapper">
@@ -25,20 +25,21 @@
         <div class="container-fluid">
             <!-- Main content -->
             <div class="isotope isotope-4 row">
-                <c:forEach var="country" items="${productCatalog}">
+                <c:forEach var="entry" items="${productCatalog}">
                     <article id="post-147"
                              class="post-147 portfolio type-portfolio status-publish has-post-thumbnail hentry isotope-item col-3 3d design">
-                        <a href="#" class="image" style="background-image: url(${country.value})"
+                        <a href="#" class="image" style="background-image: url(${entry.value})"
                            data-portfolio="147"></a>
                         <div class="inner">
                             <header>
                                 <form action="${pageContext.request.contextPath}/addProduct" method="get">
-                                    <input type="hidden" name="productId" value="${country.key.id}" required>
-
-                                    <div class="btn_container">
-                                        <button class="btn btn-outline-success"><p>💰</p></button>
-                                    </div>
-                                    <h4>${country.key.name}</h4>
+                                    <input type="hidden" name="productId" value="${entry.key.id}" required>
+                                    <c:if test="${userInfo.role == 'USER'}">
+                                        <div class="btn_container">
+                                            <button class="btn btn-outline-success"><p>💰</p></button>
+                                        </div>
+                                    </c:if>
+                                    <h4>${entry.key.name}</h4>
                                     <p>Тут будет какой-то текст =З</p>
                                 </form>
                             </header>

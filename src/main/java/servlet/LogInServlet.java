@@ -7,6 +7,7 @@ import model.beans.User;
 import model.dao.CartDAO;
 import model.dao.ProductDAO;
 import model.dao.UserDAO;
+import model.entities.UserStatus;
 import utils.AppUtils;
 
 import javax.servlet.RequestDispatcher;
@@ -70,7 +71,17 @@ public class LogInServlet extends HttpServlet {
 
         if ( user == null) {
 
+
+
             req.setAttribute("ErrorMessage","Wrong username or password");
+            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(PagesСonfig.loginPage);
+            dispatcher.forward(req, resp);
+            return;
+        }
+
+
+        if (user.getStatus().equals(UserStatus.BAN)) {
+            req.setAttribute("ErrorMessage","You in ban");
             RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(PagesСonfig.loginPage);
             dispatcher.forward(req, resp);
             return;

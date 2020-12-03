@@ -14,7 +14,7 @@
 </head>
 <body class="page page-template page-template-template-portfolio page-template-template-portfolio-php menu-left menu-collapsible">
 
-<c:import charEncoding="utf-8" url="indexPageParts/header.jsp"/>
+<c:import charEncoding="utf-8" url="parts/header.jsp"/>
 
 <!-- Main wrapper -->
 <div id="main-wrapper">
@@ -24,63 +24,25 @@
             <!-- Main content -->
             <div class="container-fluid-content">
                 <ul class="list-group_productList" style="width: 50%">
-                    <c:forEach var="country" items="${productCatalog}">
+                    <c:forEach var="entry" items="${productCatalog}">
+                        <c:set var="product" value="${entry.key}" scope="request"/>
+                        <c:set var="url" value="${entry.value}" scope="request"/>
+                        <c:set var="btnUrl" value="resources/img/cart/clear.svg" scope="request"/>
                         <form action="${pageContext.request.contextPath}/removeFromStore">
-                            <input type="hidden" name="inStoreId" value="${country.key.id}" required>
-                            <div class="list-group" style="width: 100%">
-                                <div class="list-group-item flex-column align-items-start">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h1 class="mb-1">${country.key.name}</h1>
-
-                                        <button class="btn btn-outline-light"
-                                                style="border: 0; width: 15%; float: right;">
-                                            <img src="resources/img/cart/clear.svg">
-                                        </button>
-
-                                    </div>
-                                    <div class="d-flex w-100 justify-content-start">
-                                        <div class="img"><img src="${country.value}"
-                                                              alt="resources/img/products/not_found.svg'"></div>
-                                        <div class="product_amount_container">
-
-                                        </div>
-                                        <div class="price">
-                                            <div><h5><strong>${country.key.cost} деньга/штук.</strong></h5></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <input type="hidden" name="inStoreId" value="${product.id}" required>
+                            <c:import url="parts/productItem.jsp"/>
                         </form>
                     </c:forEach>
                 </ul>
 
                 <ul class="list-group_productList" style="width: 50%">
-                    <c:forEach var="country" items="${NotInStore}">
+                    <c:forEach var="entry" items="${NotInStore}">
+                        <c:set var="product" value="${entry.key}" scope="request"/>
+                        <c:set var="url" value="${entry.value}" scope="request"/>
+                        <c:set var="btnUrl" value="resources/img/cart/plus.svg" scope="request"/>
                         <form action="${pageContext.request.contextPath}/addToStore">
-                            <input type="hidden" name="notInStoreId" value="${country.key.id}" required>
-                            <div class="list-group" style="width: 100%">
-                                <div class="list-group-item flex-column align-items-start">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h1 class="mb-1">Name ${country.key.name}</h1>
-
-                                        <button class="btn btn-outline-light"
-                                                style="border: 0; width: 15%; float: right;">
-                                            <img src="resources/img/cart/plus.svg">
-                                        </button>
-
-                                    </div>
-                                    <div class="d-flex w-100 justify-content-start">
-                                        <div class="img"><img src="${country.value}"
-                                                              alt="resources/img/products/not_found.svg'"></div>
-                                        <div class="product_amount_container">
-
-                                        </div>
-                                        <div class="price">
-                                            <div><h5><strong>${country.key.cost} деньга/штук.</strong></h5></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <input type="hidden" name="notInStoreId" value="${product.id}" required>
+                            <c:import url="parts/productItem.jsp"/>
                         </form>
                     </c:forEach>
                 </ul>

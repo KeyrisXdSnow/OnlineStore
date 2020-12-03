@@ -5,12 +5,14 @@ import config.DatabaseConfig;
 import model.beans.User;
 import model.entities.Datebase;
 import model.entities.Role;
+import model.entities.UserStatus;
 import utils.DatebaseService;
 import utils.builders.UserBuilder;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Locale;
 
 import service.BCrypt;
@@ -26,7 +28,8 @@ public class UserDAO {
     public static User getUserByUsername(String username, String password) {
 
         Connection connection = DatebaseService.connectToBD(database);
-
+        var roles = getUsersRoles();
+        var statuses = AdminDAO.getUsersStatus();
         try {
 
             password = BCrypt.hashpw(password, getSaleByUsername(username));
@@ -39,14 +42,17 @@ public class UserDAO {
                 long role_id = Integer.parseInt(resultSet.getString(5));
                 String email = resultSet.getString(3);
                 double balance = Double.parseDouble(resultSet.getString(7));
+                UserStatus status = statuses.get(Long.parseLong(resultSet.getString(8)));
 
                 return new UserBuilder()
                         .withId(id)
                         .withUsername(username)
                         .withEmail(email)
                         .withPassword(password)
-                        .withRole(getUserRoleByRoleId(role_id))
-                        .withBalance(balance).getUser();
+                        .withRole(roles.getOrDefault(role_id, Role.USER))
+                        .withBalance(balance)
+                        .withStatus(status)
+                        .getUser();
 
             } catch (SQLException | NumberFormatException throwables) {
                 throwables.printStackTrace();
@@ -60,6 +66,33 @@ public class UserDAO {
 
         return null;
     }
+
+
+    public static HashMap<Long, Role> getUsersRoles() {
+
+        Connection connection = DatebaseService.connectToBD(database);
+
+        try {
+            String sql = "SELECT * FROM roles";
+            ResultSet resultSet = DatebaseService.executeQuery(sql, connection);
+
+            HashMap<Long,Role> roleHashMap = new HashMap<>();
+
+            while (resultSet.next()) {
+                roleHashMap.put(Long.parseLong(resultSet.getString(1)),Role.valueOf(resultSet.getString(2)));
+            }
+
+            return roleHashMap;
+
+        } catch (SQLException | NumberFormatException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DatebaseService.closeConnection(connection);
+        }
+        return null;
+
+    }
+
 
     public static String getSaleByUsername(String username) {
 

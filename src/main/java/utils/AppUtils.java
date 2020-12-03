@@ -28,9 +28,16 @@ public class AppUtils {
     }
 
     public static void removeLoginedUser (HttpSession session) {
-        CartUtils.removeCart(session);
-        session.removeAttribute(attributeUser);
-        session.removeAttribute(attributeCatalog);
+
+        var Iterator = session.getAttributeNames().asIterator();
+
+        while (Iterator.hasNext()) {
+            session.removeAttribute(Iterator.next());
+
+        }
+
+        var asd = session.getAttributeNames();
+
     }
 
     public static void storeCatalog(HttpSession session, LinkedHashMap<? extends Product, String> productList) {

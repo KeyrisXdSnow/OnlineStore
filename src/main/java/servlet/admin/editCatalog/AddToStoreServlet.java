@@ -17,11 +17,14 @@ public class AddToStoreServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        try {
+            String strId = req.getParameter(AdminUtils.notInStoreProductIdAttribute);
+            long id = Long.parseLong(strId);
 
-        String strId = req.getParameter(AdminUtils.notInStoreProductIdAttributeName);
-        long id = Long.parseLong(strId);
-
-        AdminUtils.addProductToStore(req.getSession(),id);
+            AdminUtils.addProductToStore(req.getSession(), id);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(PagesСonfig.editCatalogUrl);
         dispatcher.forward(req, resp);

@@ -17,7 +17,7 @@ public class RemoveFromStoreServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String strId = req.getParameter(AdminUtils.inStoreProductIdAttributeName);
+        String strId = req.getParameter(AdminUtils.inStoreProductIdAttribute);
         long id = Long.parseLong(strId);
 
         AdminUtils.removeProductFromStore(req.getSession(),id);

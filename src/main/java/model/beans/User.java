@@ -1,6 +1,7 @@
 package model.beans;
 
 import model.entities.Role;
+import model.entities.UserStatus;
 
 import java.io.Serializable;
 
@@ -15,15 +16,9 @@ public class User implements Serializable {
 
     private Role role;
 
-    public User() {
-    }
+    private UserStatus status;
 
-    public User(long id, String username, String email, String password, Role role) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.role = role;
+    public User() {
     }
 
     public long getId() {
@@ -72,5 +67,13 @@ public class User implements Serializable {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
 }

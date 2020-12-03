@@ -22,4 +22,8 @@ public final class PagesСonfig {
 
     public static String cartPage = "/cart.jsp";
     public static String cartUrl = "/cart";
+
+    public static String editUserPage = "/editUser.jsp";
+    public static String editUserUrl = "/editUser";
+
 }

@@ -20,7 +20,7 @@
         <div class="container">
             <h1>Log in</h1>
             <span style="color:red">${ErrorMessage}</span>
-            <span style="color:#3fd445">${OKMessage}</span>
+            <span style="color:#323232">${OKMessage}</span>
             <hr>
 
             <div class="imgcontainer">

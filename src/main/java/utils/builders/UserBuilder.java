@@ -2,6 +2,7 @@ package utils.builders;
 
 import model.beans.User;
 import model.entities.Role;
+import model.entities.UserStatus;
 
 public class UserBuilder {
 
@@ -44,4 +45,11 @@ public class UserBuilder {
         this.user.setRole(role);
         return this;
     }
+
+    public UserBuilder withStatus(UserStatus status) {
+        this.user.setStatus(status);
+        return this;
+    }
+
+
 }
