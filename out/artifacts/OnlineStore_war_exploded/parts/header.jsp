@@ -2,13 +2,13 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
 <div id="top" class="shadow">
-    <nav class="menu">
+    <nav class="menu" style="padding-top: 1.5%">
         <ul>
-
             <c:if test="${userInfo.role == 'USER'}">
                 <li>
-                    <form>
-                        <a href="${pageContext.request.contextPath}/">Home page</a>
+                    <form action="${pageContext.request.contextPath}/" method="get">
+                        <button> Home page</button>
+
                     </form>
                 </li>
                 <li>
@@ -22,24 +22,35 @@
                 <li>
                     <form action="${pageContext.request.contextPath}/giveMoney">
                         <button href="">Получить 50 деняг
-                            <img src="${pageContext.request.contextPath}/resources/img/header/user/money.png" style="width: 12%">
+                            <img src="${pageContext.request.contextPath}/resources/img/header/user/money.png"
+                                 style="width: 12%">
                         </button>
                     </form>
                 </li>
             </c:if>
             <c:if test="${userInfo.role == 'ADMIN'}">
                 <li>
-                    <form>
-                        <a href="${pageContext.request.contextPath}/">Каталог товаров</a>
+                    <form action="${pageContext.request.contextPath}/" method="get">
+
+                        <button>Каталог Товаров</button>
+
                     </form>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/editCatalog"> Изменить Каталог товаров
-                    <img src="${pageContext.request.contextPath}/resources/img/header/admin/alpaca.svg" style="width: 6%">
-                </a>
+                <li>
+                    <form action="${pageContext.request.contextPath}/editCatalog" method="get">
+                        <button>Изменить каталог товаров
+                            <img src="${pageContext.request.contextPath}/resources/img/header/admin/alpaka1.png"
+                                 style="width: 10%">
+                        </button>
+                    </form>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/editUser"> Каталог юезров
-                    <img src="${pageContext.request.contextPath}/resources/img/header/admin/group.svg" style="width: 12%">
-                </a>
+                <li>
+                    <form action="${pageContext.request.contextPath}/editUser">
+                        <button href="">Изменить юзеров
+                            <img src="${pageContext.request.contextPath}/resources/img/header/admin/group%20(2).png"
+                                 style="width: 4%">
+                        </button>
+                    </form>
                 </li>
             </c:if>
             <li>

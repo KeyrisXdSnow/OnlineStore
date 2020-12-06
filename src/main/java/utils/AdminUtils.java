@@ -35,13 +35,12 @@ public class AdminUtils {
     }
 
 
-    public static void removeAdminAttributes (HttpSession session) {
+    public static void removeAdminAttributes(HttpSession session) {
         removeBanUserList(session);
         removeUnbanUserList(session);
         removeProductListNotInStore(session);
 
     }
-
 
 
     public static void storeProductListNotInStore(HttpSession session, LinkedHashMap<? extends Product, String> productsNotInStore) {
@@ -81,14 +80,10 @@ public class AdminUtils {
     }
 
 
-
-
-
-
     public static void addProductToStore(HttpSession session, long productId) {
 
         try {
-
+            ProductDAO.updateProductInStoreByProductId(productId, 1);
 
             notInStoreList = (LinkedHashMap<Product, String>) AdminUtils.getProductListNotInStore(session);
             var catalog = (LinkedHashMap<Product, String>) AppUtils.getCatalog(session);
@@ -100,9 +95,8 @@ public class AdminUtils {
 
             notInStoreList.remove(product.getKey());
             catalog.put(product.getKey(), product.getValue());
-            ProductDAO.updateProductInStoreByProductId(productId, 1);
 
-            AdminUtils.storeProductListNotInStore(session,notInStoreList);
+            AdminUtils.storeProductListNotInStore(session, notInStoreList);
             AppUtils.storeCatalog(session, catalog);
 
         } catch (NullPointerException | NumberFormatException e) {
@@ -127,7 +121,7 @@ public class AdminUtils {
             notInStoreList.put(product.getKey(), product.getValue());
             ProductDAO.updateProductInStoreByProductId(productId, 0);
 
-            AdminUtils.storeProductListNotInStore(session,notInStoreList);
+            AdminUtils.storeProductListNotInStore(session, notInStoreList);
             AppUtils.storeCatalog(session, catalog);
 
         } catch (NullPointerException | NumberFormatException e) {
@@ -140,12 +134,10 @@ public class AdminUtils {
     public static void loadProductsLists(HttpSession session) {
         try {
 
-            if (getProductListNotInStore(session) == null) {
+            CatalogService.loadCatalog();
+            session.setAttribute(AdminUtils.inStoreProductsAttribute, CatalogService.getProductsInStore());
+            session.setAttribute(AdminUtils.notInStoreProductsAttribute, CatalogService.getProductsNotInStore());
 
-                CatalogService.loadCatalog();
-                session.setAttribute(AdminUtils.inStoreProductsAttribute, CatalogService.getProductsInStore());
-                session.setAttribute(AdminUtils.notInStoreProductsAttribute, CatalogService.getProductsNotInStore());
-            }
 
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -159,17 +151,18 @@ public class AdminUtils {
             var statuses = AdminDAO.getUsersStatus();
             long statusId = statuses.entrySet().stream().filter(entry -> entry.getValue().equals(UserStatus.ACTIVE)).findFirst().get().getKey();
 
-            AdminDAO.updateUserByUserId(userId,statusId);
+            AdminDAO.updateUserByUserId(userId, statusId);
 
             var unbanUserList = AdminUtils.getUnbanUserList(session);
             var banUserList = AdminUtils.getBanUserList(session);
 
-            User user = banUserList.stream().filter( us -> us.getId() == userId ).findFirst().orElse(null);
+            User user = banUserList.stream().filter(us -> us.getId() == userId).findFirst().orElse(null);
+            user.setStatus(UserStatus.ACTIVE);
 
             banUserList.remove(user);
             unbanUserList.add(user);
 
-            AdminUtils.storeBanUserList(session,banUserList);
+            AdminUtils.storeBanUserList(session, banUserList);
             AdminUtils.storeUnbanUserList(session, unbanUserList);
 
 
@@ -186,17 +179,18 @@ public class AdminUtils {
             var statuses = AdminDAO.getUsersStatus();
             long statusId = statuses.entrySet().stream().filter(entry -> entry.getValue().equals(UserStatus.BAN)).findFirst().get().getKey();
 
-            AdminDAO.updateUserByUserId(userId,statusId);
+            AdminDAO.updateUserByUserId(userId, statusId);
 
             var unbanUserList = AdminUtils.getUnbanUserList(session);
             var banUserList = AdminUtils.getBanUserList(session);
 
-            User user = unbanUserList.stream().filter( us -> us.getId() == userId ).findFirst().orElse(null);
+            User user = unbanUserList.stream().filter(us -> us.getId() == userId).findFirst().orElse(null);
+            user.setStatus(UserStatus.BAN);
 
             unbanUserList.remove(user);
             banUserList.add(user);
 
-            AdminUtils.storeBanUserList(session,banUserList);
+            AdminUtils.storeBanUserList(session, banUserList);
             AdminUtils.storeUnbanUserList(session, unbanUserList);
 
 
@@ -210,13 +204,12 @@ public class AdminUtils {
 
         try {
 
-            if (getBanUserList(session) == null || getUnbanUserList(session) == null ) {
 
-                AdminService.loadUsers();
+            AdminService.loadUsers();
 
-                session.setAttribute(banUserListAttribute, AdminService.getBanUserList());
-                session.setAttribute(unbanUserListAttribute, AdminService.getUnbanUserList());
-            }
+            session.setAttribute(banUserListAttribute, AdminService.getBanUserList());
+            session.setAttribute(unbanUserListAttribute, AdminService.getUnbanUserList());
+
 
         } catch (NullPointerException e) {
             e.printStackTrace();

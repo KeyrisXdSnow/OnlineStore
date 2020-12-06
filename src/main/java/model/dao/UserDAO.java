@@ -223,7 +223,7 @@ public class UserDAO {
 
             String insertSql = String.format(Locale.ROOT,"UPDATE users SET balance = %f WHERE id=%d", newBalance, userId);
 
-            DatebaseService.execute(insertSql, connection);
+            DatebaseService.executeUpdate(insertSql, connection);
         } finally {
             DatebaseService.closeConnection(connection);
         }

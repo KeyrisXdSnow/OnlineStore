@@ -222,7 +222,7 @@ public class CartDAO {
 
             String insertSql = String.format("UPDATE cart_item SET amount=%d WHERE id_cart=%d AND id_product=%d",
                     newValue, cartId, productId);
-            DatebaseService.execute(insertSql, connection);
+            DatebaseService.executeUpdate(insertSql, connection);
 
         } catch (NullPointerException e) {
             e.printStackTrace();

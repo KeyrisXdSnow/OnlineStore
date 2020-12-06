@@ -71,8 +71,6 @@ public class LogInServlet extends HttpServlet {
 
         if ( user == null) {
 
-
-
             req.setAttribute("ErrorMessage","Wrong username or password");
             RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher(PagesСonfig.loginPage);
             dispatcher.forward(req, resp);
@@ -87,13 +85,7 @@ public class LogInServlet extends HttpServlet {
             return;
         }
 
-        var productList = ProductDAO.getProductListInStore();
-        Cart cart = CartDAO.getCartByUserId(user.getId(), productList);
-        AppUtils.storeLoginedUser(req.getSession(), user,cart);
-        AppUtils.storeCatalog(req.getSession(),productList);
-
-
-
+        AppUtils.storeLoginedUserInfo(req.getSession(),user);
         resp.sendRedirect(super.getServletContext().getContextPath()+ PagesСonfig.indexUrl);
     }
 

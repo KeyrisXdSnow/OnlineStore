@@ -4,9 +4,11 @@ import config.DatabaseConfig;
 import model.beans.Product;
 import model.entities.Datebase;
 import model.entities.Specification;
+import utils.AppUtils;
 import utils.DatebaseService;
 import utils.builders.ProductBuilder;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,17 +22,17 @@ public class ProductDAO {
         database = DatabaseConfig.getDatebase();
     }
 
-    public static LinkedHashMap<? extends Product, String> getProductListInStore() {
+    public static LinkedHashMap<? extends Product, String> getProductListInStore(HttpSession session) {
 
         Connection connection = DatebaseService.connectToBD(database);
         try {
+
             String insertSql = String.format("SELECT * FROM catalog WHERE inStore=1");
 
             ResultSet resultSet = DatebaseService.executeQuery(insertSql, connection);
 
             LinkedHashMap productList = new LinkedHashMap<Product, String>();
 
-            int i = 1;
             while (resultSet.next()) {
                 long id = Long.parseLong(resultSet.getString(1));
                 String name = resultSet.getString(2);
@@ -44,7 +46,7 @@ public class ProductDAO {
                         .withSpecification(specification)
                         .getProduct();
 
-                String url = String.format("resources/img/products/%s.jpg", i++);
+                String url = String.format("resources/img/products/%s.jpg", id);
                 productList.put(product, url);
 
             }
@@ -107,7 +109,7 @@ public class ProductDAO {
         try {
 
             String insertSql = String.format("UPDATE catalog SET inStore=%d WHERE id_product=%d", newValue, productId);
-            DatebaseService.execute(insertSql, connection);
+            DatebaseService.executeUpdate(insertSql, connection);
 
         } catch (NullPointerException e) {
             e.printStackTrace();

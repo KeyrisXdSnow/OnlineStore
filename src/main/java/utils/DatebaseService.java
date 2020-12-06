@@ -60,7 +60,22 @@ public class DatebaseService {
             Statement statement = connection.createStatement();
             resultSet = statement.execute(sql);
 
-            if (!resultSet) throw new SQLException("User was not inserted into the database. SQL: " + sql);
+            } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void executeUpdate(String sql, Connection connection) {
+
+        int resultSet;
+
+        try {
+
+            Statement statement = connection.createStatement();
+            resultSet = statement.executeUpdate(sql);
+
+            if (resultSet == 0) throw new SQLException("Can't do request. SQL: " + sql);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,7 +83,6 @@ public class DatebaseService {
 
 
     }
-
 
     public static void closeConnection(Connection connection) {
 

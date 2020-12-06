@@ -6,7 +6,7 @@
         <div class="d-flex w-100 justify-content-between">
             <h1 class="mb-1">${user.username}</h1>
 
-            <button class="${btn}" style="border: 0; width: 15%; float: right;">
+            <button class="${btn}" style="border: 0; width: 15%; float: right; word-wrap: break-word">
                 ${btnText}
             </button>
 

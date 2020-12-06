@@ -90,7 +90,7 @@ public class AdminDAO {
         try {
 
             String insertSql = String.format("UPDATE users SET status=%d WHERE id=%d", newValue, userId);
-            DatebaseService.execute(insertSql, connection);
+            DatebaseService.executeUpdate(insertSql, connection);
 
         } catch (NullPointerException e) {
             e.printStackTrace();

@@ -58,11 +58,8 @@
 <script type='text/javascript' src='resources/js/jquery-migrate.min.js'></script>
 
 <script type="text/javascript">
-
     jQuery(document).ready(function ($) {
-
         'use strict';
-
         $('article.portfolio a').click(function () {
             var itemID = $(this).attr('data-portfolio');
             $('#top').addClass('portfolio-open');
@@ -78,14 +75,12 @@
             });
             return false;
         });
-
         $('#portfolio-close').click(function () {
             $('#portfolio-full').removeClass('portfolio-open');
             $('#top').removeClass('portfolio-open');
             $('#portfolio-full').html('');
             return false;
         });
-
     });
 </script>
 
@@ -108,4 +103,3 @@
 
 </body>
 </html>
-
